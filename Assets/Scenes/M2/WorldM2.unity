@@ -2303,6 +2303,9 @@ MonoBehaviour:
   statusVar: PerseusNPCState
   stateMap:
     states:
+    - name: Beginning
+      state: 1
+      dialogueEntryTitle: Perseus
     - name: Affirmative
       state: 2
       dialogueEntryTitle: Alt1
@@ -2312,9 +2315,6 @@ MonoBehaviour:
     - name: FinalState
       state: 4
       dialogueEntryTitle: PerseusFinal
-    - name: Beginning
-      state: 1
-      dialogueEntryTitle: Perseus
   idleStateDialogueTitle: Perseus
   taskInProgressStateDialogueTitle: Alt1
   taskCompleteDialogueTitle: PerseusComplete
@@ -2671,6 +2671,9 @@ MonoBehaviour:
   statusVar: DionysusNPCState
   stateMap:
     states:
+    - name: Beginning
+      state: 1
+      dialogueEntryTitle: DionysusStart
     - name: Affirmative
       state: 2
       dialogueEntryTitle: Alt1
@@ -2680,9 +2683,6 @@ MonoBehaviour:
     - name: FinalState
       state: 4
       dialogueEntryTitle: DionysusFinal
-    - name: Beginning
-      state: 1
-      dialogueEntryTitle: DionysusStart
   idleStateDialogueTitle: DionysusStart
   taskInProgressStateDialogueTitle: Alt1
   taskCompleteDialogueTitle: DionysusComplete
@@ -5521,6 +5521,9 @@ MonoBehaviour:
   statusVar: DracoNPCState
   stateMap:
     states:
+    - name: Beginning
+      state: 1
+      dialogueEntryTitle: DracoStart
     - name: Affirmative
       state: 2
       dialogueEntryTitle: Alt1
@@ -5530,9 +5533,6 @@ MonoBehaviour:
     - name: FinalState
       state: 4
       dialogueEntryTitle: DracoFinal
-    - name: Beginning
-      state: 1
-      dialogueEntryTitle: DracoStart
   idleStateDialogueTitle: DracoStart
   taskInProgressStateDialogueTitle: Alt1
   taskCompleteDialogueTitle: DracoComplete
@@ -5886,6 +5886,9 @@ MonoBehaviour:
   statusVar: GeminiNPCState
   stateMap:
     states:
+    - name: Beginning
+      state: 1
+      dialogueEntryTitle: GeminiStart
     - name: Affirmative
       state: 2
       dialogueEntryTitle: Alt1
@@ -5895,9 +5898,6 @@ MonoBehaviour:
     - name: FinalState
       state: 4
       dialogueEntryTitle: GeminiFinal
-    - name: Beginning
-      state: 1
-      dialogueEntryTitle: GeminiStart
   idleStateDialogueTitle: GeminiStart
   taskInProgressStateDialogueTitle: Alt1
   taskCompleteDialogueTitle: GeminiComplete
@@ -13160,6 +13160,9 @@ MonoBehaviour:
   statusVar: TricksterNPCState
   stateMap:
     states:
+    - name: Beginning
+      state: 1
+      dialogueEntryTitle: TricksterStart
     - name: Affirmative
       state: 2
       dialogueEntryTitle: Alt1
@@ -13169,9 +13172,6 @@ MonoBehaviour:
     - name: FinalState
       state: 4
       dialogueEntryTitle: TricksterFinal
-    - name: Beginning
-      state: 1
-      dialogueEntryTitle: TricksterStart
   idleStateDialogueTitle: TricksterStart
   taskInProgressStateDialogueTitle: Alt1
   taskCompleteDialogueTitle: TricksterComplete
@@ -15392,7 +15392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1050722108466534538, guid: eca1290be5a3d3040be54a632e77dd73, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 419.99994
+      value: 419.99997
       objectReference: {fileID: 0}
     - target: {fileID: 1120755832535384351, guid: eca1290be5a3d3040be54a632e77dd73, type: 3}
       propertyPath: m_fontAsset

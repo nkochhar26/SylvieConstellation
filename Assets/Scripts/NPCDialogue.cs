@@ -44,13 +44,6 @@ public class NPCDialogue : MonoBehaviour
     [Header("Dialogue State Map")]
     [SerializeField] private StateMap stateMap;
 
-    [Header("Dialogue Script names")]
-    // File names of the yarn spinner scripts (ex. LoversNPC)
-    [SerializeField] public string idleStateDialogueTitle;
-    [SerializeField] public string taskInProgressStateDialogueTitle;
-    [SerializeField] public string taskCompleteDialogueTitle;
-    [SerializeField] public string postCompletionDialogueTitle;
-
     [SerializeField] public CharacterImageView characterImageView;
     [SerializeField] public Sprite charImage;
     private Sprite blankImage;
@@ -185,14 +178,14 @@ public class NPCDialogue : MonoBehaviour
     /// <param name="other">The other Collider2D involved in this collision.</param>
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player") {
+        if (other.gameObject.CompareTag("Player")) {
             canTalk = true;
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player") {
+        if (other.gameObject.CompareTag("Player")) {
             canTalk = false;   
         }
     }
