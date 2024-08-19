@@ -4,6 +4,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Threading.Tasks;
 using static SerializationAssistant;
+using Yarn;
+using Yarn.Unity;
 
 /// <summary>
 /// A singleton class that handles saving and loading
@@ -20,6 +22,9 @@ public class SaveSystem : Singleton<SaveSystem>
         public string pathName;
         public SerializableVector3 sylviePosition;
         public HashSet<string> visitedAreas;
+        public Dictionary<string, float> floatDialogueVariables;
+        public Dictionary<string, string> stringDialogueVariables;
+        public Dictionary<string, bool> boolDialogueVariables;
     }
 
     public const string DUMMY_FILE_NAME = "save0";
@@ -37,11 +42,16 @@ public class SaveSystem : Singleton<SaveSystem>
     public static Save GenerateSave()
     {
         GameObject sylvie = GameObject.FindWithTag("Player");
+        GameObject dialogueSystem = GameObject.Find("Dialogue System");
+        (var f, var s, var b) = dialogueSystem.GetComponent<InMemoryVariableStorage>().GetAllVariables();
         Save save = new()
         {
             pathName = DUMMY_FILE_NAME,
             sylviePosition = sylvie.transform.position.ToSerializable(),
             visitedAreas = VisitedAreaManager.visitedAreas,
+            floatDialogueVariables = f,
+            stringDialogueVariables = s,
+            boolDialogueVariables = b,
         };
 
         return save;
@@ -121,8 +131,15 @@ public class SaveSystem : Singleton<SaveSystem>
         if (save == null) return;
 
         GameObject sylvie = GameObject.FindWithTag("Player");
+        GameObject dialogueSystem = GameObject.Find("Dialogue System");
         sylvie.transform.position = save.sylviePosition.ToVector3();
         VisitedAreaManager.visitedAreas = save.visitedAreas;
+        dialogueSystem.GetComponent<InMemoryVariableStorage>().SetAllVariables(
+            save.floatDialogueVariables,
+            save.stringDialogueVariables,
+            save.boolDialogueVariables,
+            clear: false
+        );
     }
 
     /// <summary>
