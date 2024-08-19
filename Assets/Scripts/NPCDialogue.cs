@@ -22,8 +22,8 @@ public enum PlayerConstellationState {
 
 public class NPCDialogue : MonoBehaviour
 {
-    private State currentState;
-    public State CurrentState
+    private StateMap.State currentState;
+    public StateMap.State CurrentState
     {
         get
         {
@@ -41,6 +41,9 @@ public class NPCDialogue : MonoBehaviour
     [Header("Dialogue Script Status Variable")]
     [SerializeField] public string statusVar;
 
+    [Header("Dialogue State Map")]
+    [SerializeField] private StateMap stateMap;
+
     [Header("Dialogue Script names")]
     // File names of the yarn spinner scripts (ex. LoversNPC)
     [SerializeField] public string idleStateDialogueTitle;
@@ -56,8 +59,8 @@ public class NPCDialogue : MonoBehaviour
     void Start()
     {
         blankImage = Resources.Load<Sprite>("blank");
-        currentState = new IdleState(dialogueRunner, idleStateDialogueTitle);
-        currentState.OnEnterState(this);
+        currentState = StateMap.State.Idle;
+        EnterState(currentState);
     }
 
     // Update is called once per frame
@@ -66,30 +69,15 @@ public class NPCDialogue : MonoBehaviour
         if (canTalk && Input.GetKeyDown(KeyCode.Space) && !GameManager.Instance.isInDialogueState)
         {
             //dialogueRunner.StartDialogue("LoversNPC");
-            string dialogueAnswer;
             gameUI.SetActive(false);
             PlayerController.Instance.canMove = false;
             GameManager.Instance.isInDialogueState = true;
-            dialogueRunner.VariableStorage.TryGetValue($"${statusVar}", out dialogueAnswer);
+
             dialogueRunner.gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite = charImage;
 
-            if (dialogueAnswer.Equals("Affirmative"))
-            {
-                ChangeDialogueState(new IncompleteTaskState(dialogueRunner, taskInProgressStateDialogueTitle));
-            }
-            else if (dialogueAnswer.Equals("TalkToNPCAgain"))
-            {
-                ChangeDialogueState(new CompletedTaskState(dialogueRunner, taskCompleteDialogueTitle));
-            }
-            else if (dialogueAnswer.Equals("FinalState"))
-            {
-                ChangeDialogueState(new AllFinishedState(dialogueRunner, postCompletionDialogueTitle));
-            }
-            else if (dialogueAnswer.Equals("Beginning"))
-            {
-                ChangeDialogueState(new IdleState(dialogueRunner, idleStateDialogueTitle));
-            }
-            currentState.OnExecuteState(this);
+            dialogueRunner.VariableStorage.TryGetValue($"${statusVar}", out string dialogueAnswer);
+            ChangeDialogueState(stateMap.Find(dialogueAnswer).state);
+            ExecuteState(currentState);
         }
         if (!PlayerController.Instance.canMove) {
             if (!dialogueRunner.IsDialogueRunning) {
@@ -101,12 +89,93 @@ public class NPCDialogue : MonoBehaviour
         }
     }
 
-    public void ChangeDialogueState(State newState)
+    public void ChangeDialogueState(StateMap.State newState)
     {
-        currentState.OnExitState(this);
+        ExitState(currentState);
         currentState = newState;
-        newState.OnEnterState(this);
+        EnterState(newState);
         Debug.Log($"STATE: {currentState.GetType()}");
+    }
+
+    public void ExecuteState(StateMap.State state)
+    {
+        Debug.Log($"{name} executing state {state}");
+        string dialogueScriptTitle = stateMap.Find(state).dialogueEntryTitle;
+
+        switch (state)
+        {
+            case StateMap.State.Idle:
+                dialogueRunner.StartDialogue(dialogueScriptTitle);
+                ChangeDialogueState(StateMap.State.FirstMeeting);
+                break;
+
+            case StateMap.State.FirstMeeting:
+                string dialogueAnswer;
+                dialogueRunner.VariableStorage.TryGetValue($"${statusVar}", out dialogueAnswer);
+                if (dialogueAnswer.Equals("Affirmative"))
+                {
+                    ChangeDialogueState(StateMap.State.IncompleteTask);
+                }
+                else
+                {
+                    ChangeDialogueState(StateMap.State.Idle);
+                }
+                break;
+
+            case StateMap.State.AllFinished:
+            case StateMap.State.CompletedTask:
+            case StateMap.State.IncompleteTask:
+                dialogueRunner.StartDialogue(dialogueScriptTitle);
+                break;
+
+            default:
+                Debug.Log($"No action assigned to {state} state");
+                break;
+        }
+    }
+
+    public void EnterState(StateMap.State state)
+    {
+        Debug.Log($"{name} entering state {state}");
+
+        switch (state)
+        {
+            case StateMap.State.CompletedTask:
+                dialogueRunner.VariableStorage.SetValue($"${statusVar}", "TalkToNPCAgain");
+                break;
+
+            case StateMap.State.AllFinished:
+            case StateMap.State.FirstMeeting:
+            case StateMap.State.Idle:
+            case StateMap.State.IncompleteTask:
+                break;
+
+            default:
+                Debug.Log($"No action assigned to {state} state");
+                break;
+        }
+    }
+
+    public void ExitState(StateMap.State state)
+    {
+        Debug.Log($"{name} exiting state {state}");
+
+        switch (state)
+        {
+            case StateMap.State.FirstMeeting:
+            case StateMap.State.IncompleteTask:
+                dialogueRunner.Stop();
+                break;
+
+            case StateMap.State.AllFinished:
+            case StateMap.State.CompletedTask:
+            case StateMap.State.Idle:
+                break;
+
+            default:
+                Debug.Log($"No action assigned to {state} state");
+                break;
+        }
     }
 
     /// <summary>

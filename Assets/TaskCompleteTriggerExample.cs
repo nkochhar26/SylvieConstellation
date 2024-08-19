@@ -23,8 +23,8 @@ public class TaskCompleteTriggerExample : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            State currState = npcDialogue.CurrentState;
-            if (currState is IncompleteTaskState)
+            StateMap.State currState = npcDialogue.CurrentState;
+            if (currState == StateMap.State.IncompleteTask)
             {
                 npcDialogue.dialogueRunner.VariableStorage.SetValue($"${npcDialogue.statusVar}", "TalkToNPCAgain");
 

@@ -2301,6 +2301,20 @@ MonoBehaviour:
   dialogueRunner: {fileID: 1172519675}
   gameUI: {fileID: 954967910}
   statusVar: PerseusNPCState
+  stateMap:
+    states:
+    - name: Affirmative
+      state: 2
+      dialogueEntryTitle: Alt1
+    - name: TalkToNPCAgain
+      state: 3
+      dialogueEntryTitle: PerseusComplete
+    - name: FinalState
+      state: 4
+      dialogueEntryTitle: PerseusFinal
+    - name: Beginning
+      state: 1
+      dialogueEntryTitle: Perseus
   idleStateDialogueTitle: Perseus
   taskInProgressStateDialogueTitle: Alt1
   taskCompleteDialogueTitle: PerseusComplete
@@ -2655,6 +2669,20 @@ MonoBehaviour:
   dialogueRunner: {fileID: 1172519675}
   gameUI: {fileID: 954967910}
   statusVar: DionysusNPCState
+  stateMap:
+    states:
+    - name: Affirmative
+      state: 2
+      dialogueEntryTitle: Alt1
+    - name: TalkToNPCAgain
+      state: 3
+      dialogueEntryTitle: DionysusComplete
+    - name: FinalState
+      state: 4
+      dialogueEntryTitle: DionysusFinal
+    - name: Beginning
+      state: 1
+      dialogueEntryTitle: DionysusStart
   idleStateDialogueTitle: DionysusStart
   taskInProgressStateDialogueTitle: Alt1
   taskCompleteDialogueTitle: DionysusComplete
@@ -5491,6 +5519,20 @@ MonoBehaviour:
   dialogueRunner: {fileID: 1172519675}
   gameUI: {fileID: 954967910}
   statusVar: DracoNPCState
+  stateMap:
+    states:
+    - name: Affirmative
+      state: 2
+      dialogueEntryTitle: Alt1
+    - name: TalkToNPCAgain
+      state: 3
+      dialogueEntryTitle: DracoComplete
+    - name: FinalState
+      state: 4
+      dialogueEntryTitle: DracoFinal
+    - name: Beginning
+      state: 1
+      dialogueEntryTitle: DracoStart
   idleStateDialogueTitle: DracoStart
   taskInProgressStateDialogueTitle: Alt1
   taskCompleteDialogueTitle: DracoComplete
@@ -5842,6 +5884,20 @@ MonoBehaviour:
   dialogueRunner: {fileID: 1172519675}
   gameUI: {fileID: 954967910}
   statusVar: GeminiNPCState
+  stateMap:
+    states:
+    - name: Affirmative
+      state: 2
+      dialogueEntryTitle: Alt1
+    - name: TalkToNPCAgain
+      state: 3
+      dialogueEntryTitle: GeminiComplete
+    - name: FinalState
+      state: 4
+      dialogueEntryTitle: GeminiFinal
+    - name: Beginning
+      state: 1
+      dialogueEntryTitle: GeminiStart
   idleStateDialogueTitle: GeminiStart
   taskInProgressStateDialogueTitle: Alt1
   taskCompleteDialogueTitle: GeminiComplete
@@ -13102,6 +13158,20 @@ MonoBehaviour:
   dialogueRunner: {fileID: 1172519675}
   gameUI: {fileID: 954967910}
   statusVar: TricksterNPCState
+  stateMap:
+    states:
+    - name: Affirmative
+      state: 2
+      dialogueEntryTitle: Alt1
+    - name: TalkToNPCAgain
+      state: 3
+      dialogueEntryTitle: TricksterComplete
+    - name: FinalState
+      state: 4
+      dialogueEntryTitle: TricksterFinal
+    - name: Beginning
+      state: 1
+      dialogueEntryTitle: TricksterStart
   idleStateDialogueTitle: TricksterStart
   taskInProgressStateDialogueTitle: Alt1
   taskCompleteDialogueTitle: TricksterComplete
@@ -15322,7 +15392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1050722108466534538, guid: eca1290be5a3d3040be54a632e77dd73, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 419.99997
+      value: 419.99994
       objectReference: {fileID: 0}
     - target: {fileID: 1120755832535384351, guid: eca1290be5a3d3040be54a632e77dd73, type: 3}
       propertyPath: m_fontAsset
