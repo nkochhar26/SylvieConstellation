@@ -140,6 +140,10 @@ public class SaveSystem : Singleton<SaveSystem>
             save.boolDialogueVariables,
             clear: false
         );
+        foreach ((string v, string s) in save.stringDialogueVariables)
+        {
+            Debug.Log($"Loaded {v} with value {s}");
+        }
     }
 
     /// <summary>
