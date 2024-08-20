@@ -16,10 +16,11 @@ public static class DialogueAssistant
             return;
         }
         NPCDialogue dialogue = currentNpc.GetComponent<NPCDialogue>();
-        dialogue.dialogueRunner.VariableStorage.SetValue($"{dialogue.stateVariable}", "Incomplete");
+        dialogue.currentState = "Incomplete";
         SaveSystem.SaveGame();
-        currentNpc.GetComponent<PuzzleProc>().PuzzleInit();
+        dialogue.GetComponent<PuzzleProc>().PuzzleInit();
     }
+
 
     [YarnCommand("set_state")]
     public static void SetState(string state) {
@@ -29,7 +30,7 @@ public static class DialogueAssistant
             return;
         }
         NPCDialogue dialogue = currentNpc.GetComponent<NPCDialogue>();
-        dialogue.dialogueRunner.VariableStorage.SetValue($"${dialogue.stateVariable}", state);
+        dialogue.currentState = state;
     }
 
     public static T GetValueOr<T>(this VariableStorageBehaviour storage, string variableName, T defaultValue)

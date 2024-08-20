@@ -19,7 +19,7 @@ public class SaveSystem : Singleton<SaveSystem>
     [System.Serializable]
     public class Save
     {
-        public string pathName;
+        public string filename;
         public SerializableVector3 sylviePosition;
         public HashSet<string> visitedAreas;
         public Dictionary<string, float> floatDialogueVariables;
@@ -34,19 +34,24 @@ public class SaveSystem : Singleton<SaveSystem>
         InitializeSingleton(gameObject);
     }
 
+    private void Start()
+    {
+
+    }
+
     /// <summary>
     /// Creates a new save file based on the current conditions of the game.
     /// Should only be called in the "World" section (TODO: check for that?)
     /// </summary>
     /// <returns>A save file representing the state of the world</returns>
-    public static Save GenerateSave()
+    public static Save GenerateSave(string filename = DUMMY_FILE_NAME)
     {
         GameObject sylvie = GameObject.FindWithTag("Player");
         GameObject dialogueSystem = GameObject.Find("Dialogue System");
         (var f, var s, var b) = dialogueSystem.GetComponent<InMemoryVariableStorage>().GetAllVariables();
         Save save = new()
         {
-            pathName = DUMMY_FILE_NAME,
+            filename = filename,
             sylviePosition = sylvie.transform.position.ToSerializable(),
             visitedAreas = VisitedAreaManager.visitedAreas,
             floatDialogueVariables = f,
@@ -72,7 +77,7 @@ public class SaveSystem : Singleton<SaveSystem>
         const int BUF_SIZE = 1_000;
 
         BinaryFormatter bf = new();
-        string realPath = Path.ChangeExtension(Path.Combine(Application.dataPath, save.pathName), ".sylvie");
+        string realPath = Path.ChangeExtension(Path.Combine(Application.dataPath, save.filename), ".sylvie");
         using FileStream fs = new(
             realPath,
             FileMode.Create,
@@ -149,9 +154,9 @@ public class SaveSystem : Singleton<SaveSystem>
     /// <summary>
     /// Generates a new save file and saves the game.
     /// </summary>
-    public static void SaveGame()
+    public static void SaveGame(string filename = DUMMY_FILE_NAME)
     {
-        Save save = GenerateSave();
+        Save save = GenerateSave(filename);
         Task.Run(() => SaveToFile(save));
     }
 
@@ -159,8 +164,8 @@ public class SaveSystem : Singleton<SaveSystem>
     /// Loads the game from the save at the default file name.
     /// </summary>
     /// NOTE: If the file does not exist, this will do nothing.
-    public static void TryLoadGame()
+    public static void TryLoadGame(string filename = DUMMY_FILE_NAME)
     {
-        LoadSave(LoadFromFile(DUMMY_FILE_NAME));
+        LoadSave(LoadFromFile(filename));
     }
 }

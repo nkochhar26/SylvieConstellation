@@ -59,11 +59,12 @@ public class NPCDialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canTalk && Input.GetKeyDown(KeyCode.Space) && !GameManager.Instance.isInDialogueState)
+        if (canTalk && Input.GetKeyDown(KeyCode.Space) && !GameManager.Instance.playerIsInDialogue)
         {
             TalkToNpc();
         }
-        if (!PlayerController.Instance.canMove && !dialogueRunner.IsDialogueRunning)
+        if (!PlayerController.Instance.canMove && !dialogueRunner.IsDialogueRunning
+            && GameManager.Instance.dialogueState == GameManager.DialogueState.NotTalking)
         {
             DoneTalking();
         }
@@ -73,7 +74,7 @@ public class NPCDialogue : MonoBehaviour
     {
         gameUI.SetActive(false);
         PlayerController.Instance.canMove = false;
-        GameManager.Instance.isInDialogueState = true;
+        GameManager.Instance.dialogueState = GameManager.DialogueState.Talking;
 
         dialogueRunner.gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite = charImage;
         string scriptName = $"{dialogueId}{currentState}";
@@ -86,7 +87,7 @@ public class NPCDialogue : MonoBehaviour
     {
         gameUI.SetActive(true);
         PlayerController.Instance.canMove = true;
-        GameManager.Instance.isInDialogueState = false;
+        GameManager.Instance.dialogueState = GameManager.DialogueState.NotTalking;
 
         dialogueRunner.gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite = blankImage;
         DialogueAssistant.currentNpc = null;

@@ -1036,10 +1036,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9e0e3a59e8467c47a6af6d3dc8452b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueRunner: {fileID: 0}
-  npcDialogue: {fileID: 362015935}
-  procs:
-  - {fileID: 362015934}
 --- !u!4 &204718952
 Transform:
   m_ObjectHideFlags: 0
@@ -1276,10 +1272,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cecc51bb832ebc448847a2918eef06d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueRunner: {fileID: 0}
-  npcDialogue: {fileID: 2112178780}
-  procs:
-  - {fileID: 2112178778}
 --- !u!1 &224032581
 GameObject:
   m_ObjectHideFlags: 0
@@ -2024,10 +2016,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2440744200c3e454fbf7505424046519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueRunner: {fileID: 0}
-  npcDialogue: {fileID: 444669010}
-  procs:
-  - {fileID: 444669008}
 --- !u!1 &318717458
 GameObject:
   m_ObjectHideFlags: 0
@@ -3933,10 +3921,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e452692b7bd36f4391b31853fb51612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueRunner: {fileID: 0}
-  npcDialogue: {fileID: 1031599448}
-  procs:
-  - {fileID: 1031599446}
 --- !u!1 &838094254
 GameObject:
   m_ObjectHideFlags: 0
@@ -5649,10 +5633,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0285d23301da04444bc390949c46c56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueRunner: {fileID: 0}
-  npcDialogue: {fileID: 1079024551}
-  procs:
-  - {fileID: 1079024547}
 --- !u!1 &1055486009
 GameObject:
   m_ObjectHideFlags: 3

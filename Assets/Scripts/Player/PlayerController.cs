@@ -62,11 +62,19 @@ public class PlayerController : Singleton<PlayerController>
 
         boostTime = 0;
         isBoosted = false;
-        if (!dionysus) {
+
+        if (GameManager.Instance.playerIsInDialogue)
+        {
+            SaveSystem.TryLoadGame();
+        }
+        else if (!dionysus) {
             transform.position = TransitionManager.Instance.holdPos;
         } else {
             this.transform.position = spawn.position;
         }
+
+        GameManager.Instance.dialogueState = GameManager.DialogueState.NotTalking;
+
         if (implosionVFX != null) {
             implosionVFX.Play();
         }
