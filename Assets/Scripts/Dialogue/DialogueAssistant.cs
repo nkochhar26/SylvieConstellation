@@ -18,6 +18,8 @@ public static class DialogueAssistant
         NPCDialogue dialogue = currentNpc.GetComponent<NPCDialogue>();
         dialogue.currentState = "Incomplete";
         SaveSystem.SaveGame();
+
+        GameManager.Instance.puzzleComplete = false;
         dialogue.GetComponent<PuzzleProc>().PuzzleInit();
     }
 

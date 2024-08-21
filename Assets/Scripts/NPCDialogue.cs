@@ -54,17 +54,25 @@ public class NPCDialogue : MonoBehaviour
     void Start()
     {
         blankImage = Resources.Load<Sprite>("blank");
+        if (GameManager.Instance.lastInteractionId == dialogueId
+            && GameManager.Instance.dialogueState == GameManager.DialogueState.Puzzle
+            && GameManager.Instance.puzzleComplete)
+        {
+            currentState = "Complete";
+            TalkToNpc();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (canTalk && Input.GetKeyDown(KeyCode.Space) && !GameManager.Instance.playerIsInDialogue)
+        if (canTalk && Input.GetKeyDown(KeyCode.Space)
+            && GameManager.Instance.dialogueState == GameManager.DialogueState.NotTalking)
         {
             TalkToNpc();
         }
         if (!PlayerController.Instance.canMove && !dialogueRunner.IsDialogueRunning
-            && GameManager.Instance.dialogueState == GameManager.DialogueState.NotTalking)
+            && GameManager.Instance.dialogueState == GameManager.DialogueState.Talking)
         {
             DoneTalking();
         }
@@ -75,11 +83,16 @@ public class NPCDialogue : MonoBehaviour
         gameUI.SetActive(false);
         PlayerController.Instance.canMove = false;
         GameManager.Instance.dialogueState = GameManager.DialogueState.Talking;
+        GameManager.Instance.lastInteractionId = dialogueId;
 
         dialogueRunner.gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite = charImage;
-        string scriptName = $"{dialogueId}{currentState}";
         DialogueAssistant.currentNpc = this;
+        StartDialogue();
+    }
 
+    void StartDialogue()
+    {
+        string scriptName = $"{dialogueId}{currentState}";
         dialogueRunner.StartDialogue(scriptName);
     }
 

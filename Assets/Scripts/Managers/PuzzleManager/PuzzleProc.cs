@@ -21,10 +21,10 @@ namespace PuzzleManagement {
             bool complete = PuzzleManager.Instance.GetPuzzleStatus(puzzleID);
             if (complete) {
                 OnPuzzleComplete?.Invoke();
-                OnPuzzleComplete?.RemoveAllListeners();
+                GameManager.Instance.puzzleComplete = true;
             } else {
                 TransitionManager.Instance.GoToScene((int) puzzleID);
-                GameManager.Instance.dialogueState = GameManager.DialogueState.Transition;
+                GameManager.Instance.dialogueState = GameManager.DialogueState.Puzzle;
             }
         }
     }

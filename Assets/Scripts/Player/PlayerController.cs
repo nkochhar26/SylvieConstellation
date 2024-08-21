@@ -63,7 +63,7 @@ public class PlayerController : Singleton<PlayerController>
         boostTime = 0;
         isBoosted = false;
 
-        if (GameManager.Instance.playerIsInDialogue)
+        if (GameManager.Instance.dialogueState != GameManager.DialogueState.NotTalking)
         {
             SaveSystem.TryLoadGame();
         }
@@ -72,8 +72,6 @@ public class PlayerController : Singleton<PlayerController>
         } else {
             this.transform.position = spawn.position;
         }
-
-        GameManager.Instance.dialogueState = GameManager.DialogueState.NotTalking;
 
         if (implosionVFX != null) {
             implosionVFX.Play();

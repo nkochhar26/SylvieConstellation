@@ -26,12 +26,12 @@ public class GameManager : Singleton<GameManager> {
     {
         NotTalking,
         Talking,
-        Transition
+        Puzzle
     }
 
     public DialogueState dialogueState;
-
-    public bool playerIsInDialogue => dialogueState != DialogueState.NotTalking;
+    public string lastInteractionId;
+    public bool puzzleComplete;
 
     public Transform lastPosition;
     public int playerLevel;
@@ -49,6 +49,9 @@ public class GameManager : Singleton<GameManager> {
         // }
         InitializeSingleton();
         DontDestroyOnLoad(gameObject);
+        dialogueState = DialogueState.NotTalking;
+        puzzleComplete = false;
+        lastInteractionId = "";
     }
 
     /// <summary>
