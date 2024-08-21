@@ -28,9 +28,16 @@ public class NPCDialogue : MonoBehaviour
     /// <summary>
     /// The state of the NPC, which determines the dialogue upon interaction.
     /// </summary>
-    public string currentState {
+    public string currentState 
+    {
         get => dialogueRunner.VariableStorage.GetValueOr(stateVariable, "Error");
         set => dialogueRunner.VariableStorage.SetValue(stateVariable, value);
+    }
+
+    public Sprite portrait
+    {
+        get => dialogueRunner.gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite;
+        set => dialogueRunner.gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite = value;
     }
 
     [SerializeField] private string defaultState;
@@ -43,7 +50,7 @@ public class NPCDialogue : MonoBehaviour
 
     [SerializeField] public CharacterImageView characterImageView;
     [SerializeField] public Sprite charImage;
-    private Sprite blankImage;
+    public static Sprite blankImage;
 
     // Start is called before the first frame update
     void Awake()
@@ -53,25 +60,38 @@ public class NPCDialogue : MonoBehaviour
 
     void Start()
     {
-        blankImage = Resources.Load<Sprite>("blank");
-        if (GameManager.Instance.lastInteractionId == dialogueId
-            && GameManager.Instance.dialogueState == GameManager.DialogueState.Puzzle
-            && GameManager.Instance.puzzleComplete)
+        blankImage ??= Resources.Load<Sprite>("blank");
+        // Test if we're returning to the world...
+        if (GameManager.Instance.lastInteractionId == dialogueId // After talking to this NPC...
+            && GameManager.Instance.dialogueState == GameManager.DialogueState.Puzzle // And initiating a puzzle...
+            && !GameManager.Instance.puzzleComplete) // But not completing it.
         {
-            currentState = "Complete";
-            TalkToNpc();
+            // In this scenario, let the player roam around or interact again.
+            DoneTalking();
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (canTalk && Input.GetKeyDown(KeyCode.Space)
-            && GameManager.Instance.dialogueState == GameManager.DialogueState.NotTalking)
+        // Test if we're returning to the world...
+        if (GameManager.Instance.lastInteractionId == dialogueId // After talking to this NPC...
+            && GameManager.Instance.dialogueState == GameManager.DialogueState.Puzzle // Initiating a puzzle...
+            && GameManager.Instance.puzzleComplete) // And completing it.
+        {
+            // In this scenario, begin the dialogue for completing a puzzle.
+            currentState = "Complete";
+            TalkToNpc();
+        }
+        // Test if the player wants to begin an interaction (when the NPC is able to)
+        else if (canTalk && Input.GetKeyDown(KeyCode.Space)
+           && GameManager.Instance.dialogueState == GameManager.DialogueState.NotTalking)
         {
             TalkToNpc();
         }
-        if (!PlayerController.Instance.canMove && !dialogueRunner.IsDialogueRunning
+        // Test if the player has finished an interaction, but we haven't acknowledged
+        // that yet.
+        else if (!PlayerController.Instance.canMove && !dialogueRunner.IsDialogueRunning
             && GameManager.Instance.dialogueState == GameManager.DialogueState.Talking)
         {
             DoneTalking();
@@ -85,7 +105,7 @@ public class NPCDialogue : MonoBehaviour
         GameManager.Instance.dialogueState = GameManager.DialogueState.Talking;
         GameManager.Instance.lastInteractionId = dialogueId;
 
-        dialogueRunner.gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite = charImage;
+        portrait = charImage;
         DialogueAssistant.currentNpc = this;
         StartDialogue();
     }
@@ -102,7 +122,7 @@ public class NPCDialogue : MonoBehaviour
         PlayerController.Instance.canMove = true;
         GameManager.Instance.dialogueState = GameManager.DialogueState.NotTalking;
 
-        dialogueRunner.gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite = blankImage;
+        portrait = blankImage;
         DialogueAssistant.currentNpc = null;
 
         SaveSystem.SaveGame();
@@ -124,23 +144,6 @@ public class NPCDialogue : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player")) {
             canTalk = false;   
-        }
-    }
-
-    [YarnCommand("show_image")]
-    public void ShowImage(string filepath)
-    {
-        if (!filepath.Equals("NO SPRITE"))
-        {
-
-            //characterImageView.characterDialogueImage.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(filepath);
-            Debug.Log($"SPRITE: {characterImageView.characterDialogueImage.sprite}");
-
-        }
-        else
-        {
-            characterImageView.characterDialogueImage.sprite = null;
-            Debug.Log($"SPRITE: {characterImageView.characterDialogueImage.sprite}");
         }
     }
 }

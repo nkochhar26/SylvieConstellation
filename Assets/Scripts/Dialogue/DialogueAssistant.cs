@@ -35,6 +35,13 @@ public static class DialogueAssistant
         dialogue.currentState = state;
     }
 
+    [YarnCommand("show_image")]
+    public static void ShowImage(string filepath)
+    {
+        currentNpc.portrait = Resources.Load<Sprite>($"DialogueArt/{filepath}");
+        Debug.Log($"SPRITE: {currentNpc.portrait}");
+    }
+
     public static T GetValueOr<T>(this VariableStorageBehaviour storage, string variableName, T defaultValue)
     {
         bool hasValue = storage.TryGetValue(variableName, out T value);
