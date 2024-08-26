@@ -17,6 +17,7 @@ public static class DialogueAssistant
         }
         NPCDialogue dialogue = currentNpc.GetComponent<NPCDialogue>();
         dialogue.currentState = "Incomplete";
+        dialogue.portrait = NPCDialogue.blankImage;
         SaveSystem.SaveGame();
 
         GameManager.Instance.puzzleComplete = false;

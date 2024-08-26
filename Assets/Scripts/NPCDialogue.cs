@@ -60,7 +60,11 @@ public class NPCDialogue : MonoBehaviour
 
     void Start()
     {
-        blankImage ??= Resources.Load<Sprite>("blank");
+        if (blankImage == null)
+        {
+            blankImage = Resources.Load<Sprite>("DialogueArt/Blank");
+        }
+        
         // Test if we're returning to the world...
         if (GameManager.Instance.lastInteractionId == dialogueId // After talking to this NPC...
             && GameManager.Instance.dialogueState == GameManager.DialogueState.Puzzle // And initiating a puzzle...

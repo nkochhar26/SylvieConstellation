@@ -5815,8 +5815,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26469535c44a110469b6c3abd30cb3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueId: 
-  defaultState: 
+  dialogueId: Lovers
+  defaultState: Start
   dialogueRunner: {fileID: 1172519675}
   gameUI: {fileID: 954967910}
   characterImageView: {fileID: 0}

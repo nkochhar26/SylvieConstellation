@@ -49,9 +49,6 @@ public class GameManager : Singleton<GameManager> {
         // }
         InitializeSingleton();
         DontDestroyOnLoad(gameObject);
-        dialogueState = DialogueState.NotTalking;
-        puzzleComplete = false;
-        lastInteractionId = "";
     }
 
     /// <summary>
@@ -60,6 +57,9 @@ public class GameManager : Singleton<GameManager> {
     /// </summary>
     void Start()
     {
+        dialogueState = DialogueState.NotTalking;
+        puzzleComplete = false;
+        lastInteractionId = "";
         SaveSystem.SaveGame(RESET_FILE_NAME);
         // SaveSystem.TryLoadGame();
     }

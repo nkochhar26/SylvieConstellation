@@ -1,12 +1,9 @@
 ﻿title: PerseusIncomplete
-tags:
-position: -39,-61
 ---
 Perseus: Have you finished, little one?
     -> Not yet...
         Perseus: Give it another try. I believe in you!
     -> Uh, yeah! All done!
-        <<show_image cassiopeia-square>>
         Perseus: Don't lie to me, Walt...
 <<start_puzzle>>
 ===
