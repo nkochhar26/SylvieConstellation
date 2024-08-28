@@ -12,7 +12,7 @@ public class TransitionManager : MonoBehaviour {
     [SerializeField]  CanvasGroup canvasGroup;
     private Coroutine transition;
     public Vector2 holdPos;
-    private int counter = -1;
+    private int counter = 0;
     public Vector2 targetPosition;
     
     public Vector2 consPos1;

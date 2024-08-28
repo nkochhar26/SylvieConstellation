@@ -15,6 +15,21 @@ Perseus: Oh, hello little one. Don't mind me. I'm just- *sigh* a little injured.
 Perseus: (I shouldn't involve this little one. It's too dangerous.)
 
 -> Try to help this constellation!
-<<set $PerseusNPCState = "TalkToNPCAgain">>
+    <<set $PerseusNPCState = "TalkToNPCAgain">>
+    <<jump PositiveResponse>>
+-> Leave the area.
+    <<jump NoResponse>>
+===
+
+title: PositiveResponse
+position: -227,156
+---
+Perseus: What are you doing?
 <<sceneChange 2>>
+===
+
+title: NoResponse
+position: 83,150        
+---
+Perseus: Oh Andromeda...
 ===
