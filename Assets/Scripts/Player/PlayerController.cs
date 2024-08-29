@@ -44,6 +44,8 @@ public class PlayerController : Singleton<PlayerController>
 
     public VisualEffect implosionVFX;
 
+    [SerializeField] private bool dontLoadOnStart;
+
     private void Awake() {
         InitializeSingleton();
         input = new PlayerInput();
@@ -63,7 +65,8 @@ public class PlayerController : Singleton<PlayerController>
         boostTime = 0;
         isBoosted = false;
 
-        if (GameManager.Instance.dialogueState != GameManager.DialogueState.NotTalking)
+        if (GameManager.Instance.dialogueState != GameManager.DialogueState.NotTalking
+            && !dontLoadOnStart)
         {
             SaveSystem.TryLoadGame();
         }

@@ -1,0 +1,12 @@
+﻿title: DionysusRepeat
+---
+<<show_image Dionysus>>
+Dionysus: Oh, thanks for grabbing those bottles, by the way.
+
+<<show_image Blank>>
+<<if dice(2) == 1>>
+    Sylvie: Bum.
+<<else>>
+    Sylvie: Wino.
+<<endif>>
+===

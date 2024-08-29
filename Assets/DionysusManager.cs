@@ -57,6 +57,7 @@ public class DionysusManager : MonoBehaviour
         AudioManager.Instance.FadeMusic(true, true);
         NotificationManager.Instance.TestPuzzleCompleteNotification();
         Drunk.GetComponent<DrunkGoggles>().SetDrunkIntensity(0);
+        GameManager.Instance.puzzleComplete = true;
         yield return new WaitForSeconds(4f);
         proc.GetComponent<PuzzleProc>().PuzzleInit();
     }

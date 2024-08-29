@@ -3,7 +3,7 @@
 <<show_image LyraCrying>>
 Lyra: ~crying~
 
-<<show_image blank>>
+<<show_image Blank>>
 Sylvie: What's wrong?
 
 <<show_image LyraCrying>>
