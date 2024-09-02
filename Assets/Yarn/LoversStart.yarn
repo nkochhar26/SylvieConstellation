@@ -10,7 +10,7 @@ Sylvie: What's wrong?
 Lyra: I can't find my lover. Can you help me?
 
 -> Sure thing. Let me help!
-    <<show_image LyraSquare>>
+    <<show_image Lyra>>
     Lyra: Oh thank you! Our connection was cut by the asteroids.
     Lyra: If you can somehow reconnect them, we can contact him!
     <<start_puzzle>>

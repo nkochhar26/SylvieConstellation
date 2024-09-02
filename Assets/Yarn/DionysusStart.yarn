@@ -26,10 +26,4 @@ Dionysus: But maybe I can help. Do me a favor and go fetch my bottles. They shou
     Sylvie: Fuck no.
     <<show_image Dionysus>>
     Dionysus: Damn. Your loss.
-    <<show_image Blank>>
-    <<if dice(2) == 1>>
-        Sylvie: Bum.
-    <<else>>
-        Sylvie: Wino.
-    <<endif>>
 ===
