@@ -44,13 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692b10676e029fc4484c233fe42add73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableGeneration: 1
   goal: {fileID: 0}
   agent: {fileID: 0}
-  pathFogCount: 30
-  steps: 12
-  pathSpawnDelay: 0.1
+  pathFogCount: 15
+  steps: 3
+  pathSpawnDelay: 0
   pathFogPrefab: {fileID: 1690648316008337248, guid: 7d6c9de112771924bbadc4a72ff55479, type: 3}
-  pathLength: 20
-  pathSizeRange: {x: 1, y: 2}
+  pathLength: 15
+  pathSizeRange: {x: 2, y: 4}
   pathLifetimeRange: {x: 2, y: 4}
-  emitterCountPerPath: 1
+  emitterCountPerPath: 0

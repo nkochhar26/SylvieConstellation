@@ -54,8 +54,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Blend: 0.099999994
-    - _DistScale: 0
+    - _Blend: 0.25
+    - _DistScale: 10.39
     - _DistSinScale: 0.3
     - _DistSpeed: 0.31
     - _Enable_Third_Vision: 1
@@ -70,8 +70,8 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Scale1: 0.01
-    - _Scale2: 0
-    - _Scale3: 0
+    - _Scale2: 0.01
+    - _Scale3: 0.02
     m_Colors:
     - _Offset: {r: 0.06, g: -0.01, b: 0, a: 0}
   m_BuildTextureStacks: []

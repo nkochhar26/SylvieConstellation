@@ -5,7 +5,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class CosmicFogGenerator : MonoBehaviour {
-    public bool enableGeneration = true;
+    public bool enableGeneration = false;
     
     [Header("Path Fog (Function)")]
     [SerializeField] private Transform goal;
@@ -41,11 +41,19 @@ public class CosmicFogGenerator : MonoBehaviour {
         for (int i = 0; i < _emitterMax; i++) {
             _emitterFogList[i] = Instantiate(pathFogPrefab, transform).GetComponent<CosmicFog>();
         }
+        enableGeneration = false;
     }
 
     private void Update() {
-        if (enableGeneration) ActivateFog();
+        if (enableGeneration) {
+            ActivateFog();
+        }
     }
+
+    public void SetEnableGeneration(bool enable) {
+        enableGeneration = enable;
+    }
+
 
     private Vector3 CalculateStepSize() {
         Vector3 normalizedDistance = (goal.position - agent.transform.position).normalized;

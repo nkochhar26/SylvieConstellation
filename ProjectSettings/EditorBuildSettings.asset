@@ -38,4 +38,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/M2/Cutscenes/MovingPictures/CassiopeiaMovingPic.unity
     guid: af98bb9602857e040b29aaeea17d1e7e
+  - enabled: 1
+    path: Assets/Scenes/M2/Cutscenes/MovingPictures/DionysusMovingPicture.unity
+    guid: eb1fbb4167e2b724ab681a0bcd740f4c
+  - enabled: 1
+    path: Assets/Scenes/M2/Cutscenes/MovingPictures/DracoMovingPicture.unity
+    guid: 837b0c76d6ba61744b4a7f8fa95f025d
   m_configObjects: {}
