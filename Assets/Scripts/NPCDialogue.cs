@@ -22,14 +22,25 @@ public enum PlayerConstellationState {
 
 public class NPCDialogue : MonoBehaviour
 {
-    private State currentState;
-    public State CurrentState
+    [SerializeField] private string dialogueId;
+    public string stateVariable => $"${dialogueId}State";
+
+    /// <summary>
+    /// The state of the NPC, which determines the dialogue upon interaction.
+    /// </summary>
+    public string currentState 
     {
-        get
-        {
-            return currentState;
-        }
+        get => dialogueRunner.VariableStorage.GetValueOr(stateVariable, "Error");
+        set => dialogueRunner.VariableStorage.SetValue(stateVariable, value);
     }
+
+    public Sprite portrait
+    {
+        get => dialogueRunner.gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite;
+        set => dialogueRunner.gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite = value;
+    }
+
+    [SerializeField] private string defaultState;
 
     private bool canTalk;
 
@@ -37,76 +48,88 @@ public class NPCDialogue : MonoBehaviour
 
     public GameObject gameUI;
 
-    // Name of status variable to get from Dialog scripts
-    [Header("Dialogue Script Status Variable")]
-    [SerializeField] public string statusVar;
-
-    [Header("Dialogue Script names")]
-    // File names of the yarn spinner scripts (ex. LoversNPC)
-    [SerializeField] public string idleStateDialogueTitle;
-    [SerializeField] public string taskInProgressStateDialogueTitle;
-    [SerializeField] public string taskCompleteDialogueTitle;
-    [SerializeField] public string postCompletionDialogueTitle;
-
     [SerializeField] public CharacterImageView characterImageView;
     [SerializeField] public Sprite charImage;
-    private Sprite blankImage;
+    public static Sprite blankImage;
 
     // Start is called before the first frame update
+    void Awake()
+    {
+        currentState = defaultState;
+    }
+
     void Start()
     {
-        blankImage = Resources.Load<Sprite>("blank");
-        currentState = new IdleState(dialogueRunner, idleStateDialogueTitle);
-        currentState.OnEnterState(this);
+        if (blankImage == null)
+        {
+            blankImage = Resources.Load<Sprite>("DialogueArt/Blank");
+        }
+        
+        // Test if we're returning to the world...
+        if (GameManager.Instance.lastInteractionId == dialogueId // After talking to this NPC...
+            && GameManager.Instance.dialogueState == GameManager.DialogueState.Puzzle // And initiating a puzzle...
+            && !GameManager.Instance.puzzleComplete) // But not completing it.
+        {
+            // In this scenario, let the player roam around or interact again.
+            DoneTalking();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (canTalk && Input.GetKeyDown(KeyCode.Space) && !GameManager.Instance.isInDialogueState)
+        // Test if we're returning to the world...
+        if (GameManager.Instance.lastInteractionId == dialogueId // After talking to this NPC...
+            && GameManager.Instance.dialogueState == GameManager.DialogueState.Puzzle // Initiating a puzzle...
+            && GameManager.Instance.puzzleComplete) // And completing it.
         {
-            //dialogueRunner.StartDialogue("LoversNPC");
-            string dialogueAnswer;
-            gameUI.SetActive(false);
-            PlayerController.Instance.canMove = false;
-            GameManager.Instance.isInDialogueState = true;
-            dialogueRunner.VariableStorage.TryGetValue($"${statusVar}", out dialogueAnswer);
-            dialogueRunner.gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite = charImage;
-
-            if (dialogueAnswer.Equals("Affirmative"))
-            {
-                ChangeDialogueState(new IncompleteTaskState(dialogueRunner, taskInProgressStateDialogueTitle));
-            }
-            else if (dialogueAnswer.Equals("TalkToNPCAgain"))
-            {
-                ChangeDialogueState(new CompletedTaskState(dialogueRunner, taskCompleteDialogueTitle));
-            }
-            else if (dialogueAnswer.Equals("FinalState"))
-            {
-                ChangeDialogueState(new AllFinishedState(dialogueRunner, postCompletionDialogueTitle));
-            }
-            else if (dialogueAnswer.Equals("Beginning"))
-            {
-                ChangeDialogueState(new IdleState(dialogueRunner, idleStateDialogueTitle));
-            }
-            currentState.OnExecuteState(this);
+            // In this scenario, begin the dialogue for completing a puzzle.
+            currentState = "Complete";
+            TalkToNpc();
         }
-        if (!PlayerController.Instance.canMove) {
-            if (!dialogueRunner.IsDialogueRunning) {
-                PlayerController.Instance.canMove = true;
-                GameManager.Instance.isInDialogueState = false;
-                dialogueRunner.gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite = blankImage;
-                gameUI.SetActive(true);
-            }
+        // Test if the player wants to begin an interaction (when the NPC is able to)
+        else if (canTalk && Input.GetKeyDown(KeyCode.Space)
+           && GameManager.Instance.dialogueState == GameManager.DialogueState.NotTalking)
+        {
+            TalkToNpc();
+        }
+        // Test if the player has finished an interaction, but we haven't acknowledged
+        // that yet.
+        else if (!PlayerController.Instance.canMove && !dialogueRunner.IsDialogueRunning
+            && GameManager.Instance.dialogueState == GameManager.DialogueState.Talking)
+        {
+            DoneTalking();
         }
     }
 
-    public void ChangeDialogueState(State newState)
+    void TalkToNpc()
     {
-        currentState.OnExitState(this);
-        currentState = newState;
-        newState.OnEnterState(this);
-        Debug.Log($"STATE: {currentState.GetType()}");
+        gameUI.SetActive(false);
+        PlayerController.Instance.canMove = false;
+        GameManager.Instance.dialogueState = GameManager.DialogueState.Talking;
+        GameManager.Instance.lastInteractionId = dialogueId;
+
+        portrait = charImage;
+        DialogueAssistant.currentNpc = this;
+        StartDialogue();
+    }
+
+    void StartDialogue()
+    {
+        string scriptName = $"{dialogueId}{currentState}";
+        dialogueRunner.StartDialogue(scriptName);
+    }
+
+    void DoneTalking()
+    {
+        gameUI.SetActive(true);
+        PlayerController.Instance.canMove = true;
+        GameManager.Instance.dialogueState = GameManager.DialogueState.NotTalking;
+
+        portrait = blankImage;
+        DialogueAssistant.currentNpc = null;
+
+        SaveSystem.SaveGame();
     }
 
     /// <summary>
@@ -116,32 +139,15 @@ public class NPCDialogue : MonoBehaviour
     /// <param name="other">The other Collider2D involved in this collision.</param>
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player") {
+        if (other.gameObject.CompareTag("Player")) {
             canTalk = true;
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player") {
+        if (other.gameObject.CompareTag("Player")) {
             canTalk = false;   
-        }
-    }
-
-    [YarnCommand("show_image")]
-    public void ShowImage(string filepath)
-    {
-        if (!filepath.Equals("NO SPRITE"))
-        {
-
-            //characterImageView.characterDialogueImage.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(filepath);
-            Debug.Log($"SPRITE: {characterImageView.characterDialogueImage.sprite}");
-
-        }
-        else
-        {
-            characterImageView.characterDialogueImage.sprite = null;
-            Debug.Log($"SPRITE: {characterImageView.characterDialogueImage.sprite}");
         }
     }
 }

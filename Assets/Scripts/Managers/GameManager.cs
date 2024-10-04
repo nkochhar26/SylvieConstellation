@@ -21,11 +21,23 @@ public class GameManager : Singleton<GameManager> {
     // public static GameManager Instance => _instance;
 
     public int ConstellationSceneTransfer = 2;
-    public bool isInDialogueState;
+
+    public enum DialogueState
+    {
+        NotTalking,
+        Talking,
+        Puzzle
+    }
+
+    public DialogueState dialogueState;
+    public string lastInteractionId;
+    public bool puzzleComplete;
 
     public Transform lastPosition;
     public int playerLevel;
     public int expAmount;
+
+    public const string RESET_FILE_NAME = "newGame";
 
     void Awake() {
         // /// Initialize Singleton;
@@ -45,6 +57,10 @@ public class GameManager : Singleton<GameManager> {
     /// </summary>
     void Start()
     {
-        
+        dialogueState = DialogueState.NotTalking;
+        puzzleComplete = false;
+        lastInteractionId = "";
+        SaveSystem.SaveGame(RESET_FILE_NAME);
+        // SaveSystem.TryLoadGame();
     }
 }

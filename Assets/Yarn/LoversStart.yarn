@@ -1,0 +1,20 @@
+﻿title: LoversStart
+---
+<<show_image LyraCrying>>
+Lyra: ~crying~
+
+<<show_image Blank>>
+Sylvie: What's wrong?
+
+<<show_image LyraCrying>>
+Lyra: I can't find my lover. Can you help me?
+
+-> Sure thing. Let me help!
+    <<show_image Lyra>>
+    Lyra: Oh thank you! Our connection was cut by the asteroids.
+    Lyra: If you can somehow reconnect them, we can contact him!
+    <<start_puzzle>>
+-> Sorry. Not right now.
+    <<show_image LyraCrying>>
+    Lyra: Oh. Ok then. ~WAHHHHHHHHHHH~
+===

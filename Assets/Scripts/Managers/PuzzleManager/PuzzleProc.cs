@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace PuzzleManagement {
 
@@ -7,16 +8,23 @@ namespace PuzzleManagement {
     /// </summary>
     public class PuzzleProc : MonoBehaviour {
 
-        public event System.Action OnPuzzleComplete;
+        public static UnityEvent OnPuzzleComplete;
 
         [SerializeField] private PuzzleID puzzleID;
+
+        private void Awake()
+        {
+            OnPuzzleComplete ??= new UnityEvent();
+        }
 
         public void PuzzleInit() {
             bool complete = PuzzleManager.Instance.GetPuzzleStatus(puzzleID);
             if (complete) {
                 OnPuzzleComplete?.Invoke();
+                GameManager.Instance.puzzleComplete = true;
             } else {
                 TransitionManager.Instance.GoToScene((int) puzzleID);
+                GameManager.Instance.dialogueState = GameManager.DialogueState.Puzzle;
             }
         }
     }

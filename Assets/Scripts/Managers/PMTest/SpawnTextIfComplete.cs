@@ -10,6 +10,6 @@ public class SpawnTextIfComplete : MonoBehaviour {
     [SerializeField] private GameObject text;
 
     void Awake() {
-        GetComponent<PuzzleManagement.PuzzleProc>().OnPuzzleComplete += () => text.SetActive(true);
+        PuzzleManagement.PuzzleProc.OnPuzzleComplete.AddListener(() => text.SetActive(true));
     }
 }

@@ -1,56 +1,44 @@
 ﻿title: TricksterStart
-tags:
-position: -39,-61
 ---
-/// State of the Gemini dialogue, used for the State Machine
-<<declare $TricksterNPCState = "Beginning">>
+<<show_image Trickster>>
 Vulpecula: Who are you, ya little pipsqueak?
 
+<<show_image Blank>>
 Sylvie: I'm Sylvie! I'm here to help all of you from Cassiopeia.
 
+<<show_image Trickster>>
 Vulpecula: Oh, I don't need help.
 
+<<show_image Blank>>
 Sylvie: Wha-huh?
 
+<<show_image Trickster>>
 Vulpecula: Yeah, that woman caused a big ruckus, but I guess she forgot about me.
-
+<<show_image TricksterLaughing>>
 Vulpecula: Or maybe she was too scared heehee...
 
+<<show_image Blank>>
 Sylvie: Ok, but there are others out there that need help, so can you help me find them?
 
+<<show_image Trickster>>
 Vulpecula: Hmmm...
-
+<<show_image TricksterLaughing>>
 Vulpecula: No.
 
+<<show_image Blank>>
 Sylvie: But... Perseus said that you could...
 
+<<show_image Trickster>>
 Vulpecula: That romantic says a lot of things. Doesn't mean that I have to listen.
-
 Vulpecula: You know what. It's been quiet and boring since Cassiopeia's tantrum. Let's have some fun!
 
 -> Go along with Vulpecula's game.
-    <<set $TricksterNPCState to "Affirmative">>
-    <<jump TricksterAffirmativeResponse>>
+    <<show_image Blank>>
+    Sylvie: What game are you thinking?
+    <<show_image Trickster>>
+    Vulpecula: A simple game. But can you keep up?
+    <<start_puzzle>>
 -> Go somewhere else.
-    <<jump TricksterNegativeResponse>>
-
-===
-
-title: TricksterAffirmativeResponse
-position: -227,156
----
-
-Sylvie: What game are you thinking?
-
-Vulpecula: A simple game. But can you keep up?
-
-<<goToTrickster 2>>
-===
-
-title: TricksterNegativeResponse
-position: 83,150
----
-
-Vulpecula: See ya, pipsqueak!
-
+    <<show_image TricksterLaughing>>
+    Vulpecula: See ya, pipsqueak!
 ===

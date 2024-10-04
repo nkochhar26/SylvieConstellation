@@ -1,0 +1,21 @@
+﻿title: DionysusComplete
+---
+<<show_image Dionysus>>
+Dionysus: Hey, you made it!
+Dionysus: I was getting worried for a second there.
+
+<<show_image Blank>>
+Sylvie: I don't feel so good...
+
+<<show_image Dionysus>>
+Dionysus: Well, take a cold shower in a comet tail.
+
+<<show_image Blank>>
+Sylvie: What about Andromeda?
+
+<<show_image Dionysus>>
+Dionysus: Eh... I told you I didn't know anything, kid.
+Dionysus: Honestly, I just wanted someone to get my bottles.
+
+<<set_state Repeat>>
+===

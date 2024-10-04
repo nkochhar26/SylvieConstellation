@@ -1,0 +1,22 @@
+﻿title: PerseusStart
+---
+<<show_image Perseus>>
+Perseus: Ah... This hurts quite badly...
+Perseus: Andromeda...
+
+<<show_image Blank>>
+Sylvie: Hi!
+
+<<show_image Perseus>>
+Perseus: Oh, hello little one. Don't mind me. I'm just- *sigh* a little injured.
+Perseus: (I shouldn't involve this little one. It's too dangerous.)
+
+-> Try to help this constellation!
+    Perseus: What are you doing?
+    <<start_puzzle>>
+-> Leave the area.
+    <<show_image Blank>>
+    Sylvie: Never mind!
+    <<show_image Perseus>>
+    Perseus: Oh, Andromeda...
+===

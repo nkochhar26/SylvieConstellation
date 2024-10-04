@@ -1,0 +1,12 @@
+﻿title: DionysusIncomplete
+---
+<<show_image Dionysus>>
+Dionysus: Can't keep your liquor, huh?
+
+<<show_image Blank>>
+Sylvie: ...
+
+<<show_image Dionysus>>
+Dionysus: Well, better get back in there!
+<<start_puzzle>>
+===

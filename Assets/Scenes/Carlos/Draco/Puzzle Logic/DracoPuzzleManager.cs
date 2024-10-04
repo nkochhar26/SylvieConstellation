@@ -44,6 +44,7 @@ public class DracoPuzzleManager : MonoBehaviour {
     {
         AudioManager.Instance.FadeMusic(true, true);
         NotificationManager.Instance.TestPuzzleCompleteNotification();
+        GameManager.Instance.puzzleComplete = true;
         yield return new WaitForSeconds(4f);
         proc.GetComponent<PuzzleProc>().PuzzleInit();
     }

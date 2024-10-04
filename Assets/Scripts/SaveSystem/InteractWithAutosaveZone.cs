@@ -15,7 +15,6 @@ public class InteractWithAutosaveZone : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SaveSystem.TryLoadGame();
         autosaveTimer = 10f;
     }
 
@@ -32,6 +31,10 @@ public class InteractWithAutosaveZone : MonoBehaviour
         if (Keyboard.current.digit0Key.wasPressedThisFrame)
         {
             SaveSystem.TryLoadGame();
+        }
+        if (Keyboard.current.minusKey.wasPressedThisFrame)
+        {
+            SaveSystem.TryLoadGame(GameManager.RESET_FILE_NAME);
         }
 
         // If the autosave timer gets low enough, but the player

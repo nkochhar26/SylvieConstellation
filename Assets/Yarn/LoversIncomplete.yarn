@@ -1,0 +1,14 @@
+﻿title: LoversIncomplete
+---
+
+<<show_image Lyra>>
+Lyra: Do you need help?
+
+<<show_image Blank>>
+Sylvie: ...
+
+<<show_image Lyra>>
+Lyra: My lover and I seem to be moving in opposite directions these days.
+
+<<start_puzzle>>
+===

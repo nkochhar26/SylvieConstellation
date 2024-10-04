@@ -1036,9 +1036,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9e0e3a59e8467c47a6af6d3dc8452b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcDialogue: {fileID: 362015935}
-  procs:
-  - {fileID: 362015934}
 --- !u!4 &204718952
 Transform:
   m_ObjectHideFlags: 0
@@ -1275,9 +1272,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cecc51bb832ebc448847a2918eef06d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcDialogue: {fileID: 2112178780}
-  procs:
-  - {fileID: 2112178778}
 --- !u!1 &224032581
 GameObject:
   m_ObjectHideFlags: 0
@@ -2022,9 +2016,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2440744200c3e454fbf7505424046519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcDialogue: {fileID: 444669010}
-  procs:
-  - {fileID: 444669008}
 --- !u!1 &318717458
 GameObject:
   m_ObjectHideFlags: 0
@@ -2298,13 +2289,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26469535c44a110469b6c3abd30cb3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueId: Perseus
+  defaultState: Start
   dialogueRunner: {fileID: 1172519675}
   gameUI: {fileID: 954967910}
-  statusVar: PerseusNPCState
-  idleStateDialogueTitle: Perseus
-  taskInProgressStateDialogueTitle: Alt1
-  taskCompleteDialogueTitle: PerseusComplete
-  postCompletionDialogueTitle: PerseusFinal
   characterImageView: {fileID: 0}
   charImage: {fileID: 21300000, guid: 06b692eb0c073374cbc865b5354b0c88, type: 3}
 --- !u!212 &362015937
@@ -2652,13 +2640,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26469535c44a110469b6c3abd30cb3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueId: Dionysus
+  defaultState: Start
   dialogueRunner: {fileID: 1172519675}
   gameUI: {fileID: 954967910}
-  statusVar: DionysusNPCState
-  idleStateDialogueTitle: DionysusStart
-  taskInProgressStateDialogueTitle: Alt1
-  taskCompleteDialogueTitle: DionysusComplete
-  postCompletionDialogueTitle: DionysusFinal
   characterImageView: {fileID: 0}
   charImage: {fileID: 21300000, guid: a729439fb86ce304e911b200e529a10d, type: 3}
 --- !u!114 &444669011
@@ -3936,9 +3921,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e452692b7bd36f4391b31853fb51612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcDialogue: {fileID: 1031599448}
-  procs:
-  - {fileID: 1031599446}
 --- !u!1 &838094254
 GameObject:
   m_ObjectHideFlags: 0
@@ -5488,13 +5470,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26469535c44a110469b6c3abd30cb3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueId: Draco
+  defaultState: Start
   dialogueRunner: {fileID: 1172519675}
   gameUI: {fileID: 954967910}
-  statusVar: DracoNPCState
-  idleStateDialogueTitle: DracoStart
-  taskInProgressStateDialogueTitle: Alt1
-  taskCompleteDialogueTitle: DracoComplete
-  postCompletionDialogueTitle: DracoFinal
   characterImageView: {fileID: 0}
   charImage: {fileID: 21300000, guid: 86210751d86923d48962bbb500597897, type: 3}
 --- !u!114 &1031599449
@@ -5654,9 +5633,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0285d23301da04444bc390949c46c56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcDialogue: {fileID: 1079024551}
-  procs:
-  - {fileID: 1079024547}
 --- !u!1 &1055486009
 GameObject:
   m_ObjectHideFlags: 3
@@ -5839,13 +5815,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26469535c44a110469b6c3abd30cb3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueId: Lovers
+  defaultState: Start
   dialogueRunner: {fileID: 1172519675}
   gameUI: {fileID: 954967910}
-  statusVar: GeminiNPCState
-  idleStateDialogueTitle: GeminiStart
-  taskInProgressStateDialogueTitle: Alt1
-  taskCompleteDialogueTitle: GeminiComplete
-  postCompletionDialogueTitle: GeminiFinal
   characterImageView: {fileID: 0}
   charImage: {fileID: 21300000, guid: 715ae293afb97654f8c888e358cb6f4f, type: 3}
 --- !u!212 &1079024552
@@ -6891,6 +6864,10 @@ PrefabInstance:
       propertyPath: yarnProject
       value: 
       objectReference: {fileID: 7545569452688597077, guid: 8e303abab4e08454ea60efca3a18dcb6, type: 3}
+    - target: {fileID: 3579681405068720530, guid: 7f29e5f7ffdea4a6793cefb278b61f0c, type: 3}
+      propertyPath: startAutomatically
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3579681405068720530, guid: 7f29e5f7ffdea4a6793cefb278b61f0c, type: 3}
       propertyPath: dialogueViews.Array.size
       value: 2
@@ -13099,13 +13076,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26469535c44a110469b6c3abd30cb3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueId: Trickster
+  defaultState: Start
   dialogueRunner: {fileID: 1172519675}
   gameUI: {fileID: 954967910}
-  statusVar: TricksterNPCState
-  idleStateDialogueTitle: TricksterStart
-  taskInProgressStateDialogueTitle: Alt1
-  taskCompleteDialogueTitle: TricksterComplete
-  postCompletionDialogueTitle: TricksterFinal
   characterImageView: {fileID: 0}
   charImage: {fileID: 21300000, guid: 32b54f469b7b4ca4ca2b1823855a7513, type: 3}
 --- !u!114 &2112178781

@@ -44,6 +44,8 @@ public class PlayerController : Singleton<PlayerController>
 
     public VisualEffect implosionVFX;
 
+    [SerializeField] private bool dontLoadOnStart;
+
     private void Awake() {
         InitializeSingleton();
         input = new PlayerInput();
@@ -62,11 +64,18 @@ public class PlayerController : Singleton<PlayerController>
 
         boostTime = 0;
         isBoosted = false;
-        if (!dionysus) {
+
+        if (GameManager.Instance.dialogueState != GameManager.DialogueState.NotTalking
+            && !dontLoadOnStart)
+        {
+            SaveSystem.TryLoadGame();
+        }
+        else if (!dionysus) {
             transform.position = TransitionManager.Instance.holdPos;
         } else {
             this.transform.position = spawn.position;
         }
+
         if (implosionVFX != null) {
             implosionVFX.Play();
         }

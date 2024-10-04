@@ -1,0 +1,8 @@
+﻿title: PerseusRepeat
+---
+<<if dice(2) == 1>>
+    Perseus: Go visit Lyra over in the Lovers Nebula. She might be able to help you.
+<<else>>
+    Perseus: Find the Lovers Nebula and visit Lyra.
+<<endif>>
+===

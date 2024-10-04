@@ -1,44 +1,28 @@
 ﻿title: DracoStart
-tags:
-position: -39,-61
 ---
-/// State of the Gemini dialogue, used for the State Machine
-<<declare $DracoNPCState = "Beginning">>
+<<show_image Draco>>
 Draco: Stay away!
 
+<<show_image Blank>>
 Sylvie: Oh, do not worry! I am not a threat.
 
+<<show_image Draco>>
 Draco: Lies. Lies! LIES!
-
 Draco: That woman... How dare she ruin my beautiful body!
 
+<<show_image Blank>>
 Sylvie: Are you talking about Cassiopeia? What did she do?
 
+<<show_image Draco>>
 Draco: What kind of trick do you aim to try on me?
 
 -> Help fix Draco.
-    <<set $DracoNPCState to "Affirmative">>
-    <<jump DracoAffirmativeResponse>>
+    <<show_image Blank>>
+    Sylvie: Let me help you! Perseus says I need your help.
+    <<show_image Draco>>
+    Draco: No! Get away from me!
+    <<start_puzzle>>
 -> Leave him alone.
-    <<jump DracoNegativeResponse>>
-
-===
-
-title: DracoAffirmativeResponse
-position: -227,156
----
-
-Sylvie: Let me help you! Perseus says I need your help.
-
-Draco: No! Get away from me!
-
-<<goToDraco 2>>
-===
-
-title: DracoNegativeResponse
-position: 83,150
----
-
-Draco: No one can come near me!
-
+    <<show_image Draco>>
+    Draco: No one can come near me!
 ===

@@ -12,12 +12,13 @@ public class VisitedAreaManager : Singleton<VisitedAreaManager>
 
     private void Awake()
     {
+        visitedAreas = new HashSet<string>();
         InitializeSingleton(gameObject);
     }
 
     private void Start()
     {
-        visitedAreas = new HashSet<string>();
+
     }
 
     public static bool AreaIsVisited(string area)
